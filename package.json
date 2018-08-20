@@ -1,0 +1,38 @@
+{
+  "name": "layernative",
+  "version": "0.0.1",
+  "description": "layernative",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SHERRYWANNA/layernative.git"
+  },
+  "keywords": [
+    "layernative",
+    "popup",
+    "box",
+    "window"
+  ],
+  "author": "SHERRYWANNA",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SHERRYWANNA/layernative/issues"
+  },
+  "homepage": "https://github.com/SHERRYWANNA/layernative#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-preset-env": "^1.7.0",
+    "css-loader": "^1.0.0",
+    "style-loader": "^0.22.1",
+    "vue": "^2.1.8",
+    "vue-loader": "^15.3.0",
+    "vue-template-compiler": "^2.5.17",
+    "webpack": "^4.16.5",
+    "webpack-cli": "^3.1.0",
+    "webpack-dev-server": "^3.1.5"
+  }
+}
