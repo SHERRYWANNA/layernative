@@ -15,7 +15,7 @@
     z-index: 50;
 }
 .layer_cover { 
-    background: url(//i.thsi.cn/images/liejin/zhuanti/5861/images/cover.png);
+    background: url(../images/cover.png);
     background-size: cover; 
     position: absolute; 
     top: 0; 

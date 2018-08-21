@@ -1,13 +1,15 @@
+import Common from './common.js';
+
 var preventMove = {
     scroll: false,
     status: false,
     startY: 0,
-    init: function(box, content) {
-        this.box = box;
+    init(content) {
+        // this.box = box;
         this.content = content;
         this.addEvent();
     },
-    fun: function(e) {
+    fun(e) {
         var _event = e || event;
 
         if (this.scroll && this.status) {
@@ -28,22 +30,23 @@ var preventMove = {
             return;
         }
     },
-    addEvent: function() {
-        addEvent(this.content, 'touchstart', 
+    addEvent() {
+        Common.addEvent(this.content, 'touchstart', 
             function(e) {
                 var _event = e || event;
                 preventMove.status = true;
                 preventMove.startY = _event.targetTouches[0].pageY;
             }
         );
-        addEvent(this.content, 'touchend', 
+        Common.addEvent(this.content, 'touchend', 
             function() {
                 preventMove.status = false;
             }
         );
-        addEvent(this.box, 'touchmove', this.fun.bind(this));
+        // Common.addEvent(this.box, 'touchmove', this.fun.bind(this));
+        Common.addEvent(this.content, 'touchmove', this.fun.bind(this));
     },
-    isAddScroll: function() {
+    isAddScroll() {
         if (this.content.scrollHeight > this.content.clientHeight) {
             this.scroll = true;
         } else {
