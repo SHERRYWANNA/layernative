@@ -1,4 +1,5 @@
 <template>
+<transition name="fade">
 <div class="layer" :class="[layerClass]" v-show="isShow.status">
     <div class="layer_cover"></div>
     <div class="layer_container" :style="containerStyle">
@@ -9,6 +10,7 @@
         </div>
     </div>
 </div>
+</transition>
 </template>
 
 <script type="text/javascript">
