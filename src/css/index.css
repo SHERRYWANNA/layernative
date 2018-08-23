@@ -22,7 +22,6 @@
     left: 0; 
     bottom: 0; 
     right: 0; 
-    display: none; 
     z-index: 50; 
     pointer-events: auto; 
 }
@@ -34,7 +33,6 @@
     margin-left: -40%; 
     pointer-events: auto; 
     z-index: 100; 
-    display: none; 
     text-align: center; 
     padding-top: .5rem; 
     background-color: #fff;
@@ -67,6 +65,8 @@
     color: #5571ed; 
     cursor: pointer;
     border-top: 1px solid #ddd;
+    outline: 0;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 @media only screen and (min-width: 667px) and (-webkit-min-device-pixel-ratio: 3)
@@ -87,4 +87,11 @@
     .layer_btn {
         font-size: 18px;
     }
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
 }

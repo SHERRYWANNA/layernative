@@ -87,7 +87,6 @@ export default {
             if ('show' === this.config.effect) {
                 this.config.time = 0;
             }
-            this.addEffect(this.config.effect, this.config.time);
             PreventMove.init(this.$refs.content);
 
             if (this.config.coverHidden) {
@@ -104,19 +103,16 @@ export default {
                 },
                 _render = {
                     title: '',
-                    word: '',
-                    btn: [{
-                        word: '我知道了',
-                        callbackHidden: 1
-                    }]
+                    content: '',
+                    btn: [{}]
                 };
 
             Common.extend(_testItem, testItem);
             Common.extend(_render, render);
 
-
             for (var i = 0; i < _render.btn.length; i++) {
-                _render.btn.push(resetBtn(_render.btn[i].word, _render.btn[i].callback, _render.btn[i].callbackHidden).bind(this));
+                let btnConfig = resetBtn.call(this, _render.btn[i].word, _render.btn[i].callback, _render.btn[i].callbackHidden);
+                Common.extend(_render.btn[i], btnConfig);
             }
 
             Common.extend(this, _render);
@@ -124,8 +120,8 @@ export default {
 
             PreventMove.isAddScroll();
            
-            function resetBtn(word = '', callback, callbackHidden) {
-                callback = () => {
+            function resetBtn(word = '我知道了', callback, callbackHidden) {
+                let _callback = () => {
                     if (callback) {
                         if (callbackHidden) {
                             this.hide(_testItem.afterHide);
@@ -141,43 +137,31 @@ export default {
 
                 return {
                     word,
-                    callback
+                    callback: _callback
                 };
             }
         },
         show: function(style, afterDisplay) {
             this.addStyle(style);
-
             if (!this.isShow.status) {
                 this.isShow.addNum();
                 this.isShow.status = true;
             }
-            $(cover).layerEffectIn(this.config.time);
-            $(container).layerEffectIn(this.config.time, afterDisplay);
+            afterDisplay();
+            // $(cover).layerEffectIn(this.config.time);
+            // $(container).layerEffectIn(this.config.time, afterDisplay);
         },
         hide: function(afterDisplay) {
             this.isShow.reduceNum();
             this.isShow.status = false;
             if (!this.isShow.num) {
-                $(cover).LayerEffectOut(this.config.time); 
-                $(container).LayerEffectOut(this.config.time, function(){
-                    content.innerHTML = '';
-                    tt.innerHTML = '';
-                    if (afterDisplay) {
-                        afterDisplay();
-                    }
-                }, 1);
+                if (afterDisplay) {
+                    afterDisplay();
+                }
             }
         },
         clearStyle: function() {
-            var _style = $(container).attr('style'),
-                _reg = /display:(\s)?.+?($|;)/;
-
-            if (_reg.test(_style)) {
-                _style = _style.match(_reg)[0];
-                $(container).attr('style', _style);
-            }
-            
+            this.containerStyle = '';
             this.layerClass = '';
         },
         addStyle: function(style) {
@@ -200,91 +184,6 @@ export default {
                 callback();
             }
         },
-        addEffect(effect, time) {
-            if (this._$) {
-                $.Common.extend($.fn, {
-                    layerEffectIn: function(time, callback) {
-                        if (effect === 'fade') {
-                            $(this).fadeIn(time, callback);
-                        } else {
-                            $(this).show(time, callback);
-                        }
-                        return this;
-                    },
-                    LayerEffectOut: function(time, callback) {
-                        if (effect === 'fade') {
-                            $(this).fadeOut(time, callback);
-                        } else {
-                            $(this).hide(time, callback);
-                        }
-                        return this;
-                    }
-                });
-            }
-        },
-        addOriginFun() {
-            if (!this._$) {
-                window.$ = function(el) {
-                    var obj = {
-                        el: typeof el !== 'object' ? Common.query(el) : el.constructor === NodeList ? el : [el],
-                        fade(status, time, callback) {
-                            var _status = 'none';
-                            if (status === 'in') {
-                                _status = 'block';
-                            }
-                            this.css('display', _status);
-                            if (callback) {
-                                if (time) {
-                                    setTimeout(callback, time);
-                                } else {
-                                    callback();
-                                }
-                            }
-                            return this;
-                        },
-                        show(time, callback) {
-                            this.fade('in', time, callback);
-                            return this;
-                        },
-                        hide(time, callback) {
-                            this.fade('out', time, callback);
-                            return this;
-                        },
-                        css(name, value) {
-                            if (value) {
-                                this.domsEvent(function() {
-                                    this.style[name] = value;
-                                });
-                            } else {
-                                return getComputedStyle(this.el[0], null).getPropertyValue(name);
-                            }
-                            return this;
-                        },
-                        attr(name, value) {
-                            if (value) {
-                                this.domsEvent(function() {
-                                    this.setAttribute(name, value);
-                                });
-                            } else {
-                                return this.el[0].getAttribute(name);
-                            }
-                            return this;
-                        },
-                        domsEvent(fun) {
-                            for (var i = 0; i < this.el.length; i++) {
-                                fun.call(this.el[i]);
-                            }
-                        }
-                    };
-                    obj.layerEffectIn = obj.show;
-                    obj.LayerEffectOut = obj.hide;
-
-                    return obj;
-                };
-
-                window.$.constructor = 'layernative';
-            }
-        },
         isSingleBtn() {
             if (1 === this.btn.length && this.config.singleBtnClass) {
                 return true;
@@ -293,10 +192,9 @@ export default {
         }
     },
     mounted() {
-        this.addOriginFun();
         this.init(this.item);
     }
 };
 </script>
 
-<style scoped src="./css/index.css"></style>
+<style src="./css/index.css"></style>
