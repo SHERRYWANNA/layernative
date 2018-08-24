@@ -3,11 +3,13 @@ import Layernative from './layernative.vue';
 
 const Layer = {
     // 注册
-    install(Vue) {
+    install(Vue, option) {
         // 生成一个Vue的子类
         // 同时这个子类也就是组件
         const layernative = Vue.extend(Layernative);
-        const layer = new layernative();
+        const layer = new layernative({
+            propsData: option
+        });
         // 实例挂载
         document.body.appendChild(layer.$mount().$el);
         

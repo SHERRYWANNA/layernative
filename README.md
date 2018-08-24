@@ -2,7 +2,7 @@
 
 尝试自己将弹框改成vue插件。
 
-仍在开发中，初级雏形！！！
+已完成！ 基础功能ok！
 
 简单使用：
 
@@ -43,6 +43,9 @@ this.$layernative.alert({
 });
 ```
 
+demo地址：
+
+    https://sherrywanna.github.io/layernative/index.html
 
 
 

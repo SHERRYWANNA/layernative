@@ -1,12 +1,12 @@
 <template>
-<transition name="fade">
+<transition :name="config.effect">
 <div class="layer" :class="[layerClass]" v-show="isShow.status">
-    <div class="layer_cover"></div>
+    <div class="layer_cover" @click="coverHide"></div>
     <div class="layer_container" :style="containerStyle">
         <div class="layer_tt" v-html="title"></div>
         <div class="layer_content" v-html="content" ref="content"></div>
         <div class="layer_btnarea">
-            <div class="layer_btn" v-for="_btn in btn" @click="_btn.callback" v-html="_btn.word"></div>
+            <div class="layer_btn" v-for="_btn in btn" @click="_btn.callback" :class="[getSingleBtn()]" v-html="_btn.word"></div>
         </div>
     </div>
 </div>
@@ -21,7 +21,6 @@ export default {
     name: 'layernative',
     data() {
         var _that = this;
-
         return {
             title: '标题',
             content: '内容',
@@ -37,7 +36,6 @@ export default {
                 effect: _that.effect,
                 singleBtnClass: _that.singlebtnclass,
             },
-            _$: (window.jQuery || window.Zepto ? true : false),
             isShow: {
                 status: false,
                 num: 0,
@@ -61,12 +59,6 @@ export default {
                 return false; 
             }
         },
-        time: {
-            type: Number,
-            default() { 
-                return 25e1; 
-            }
-        },
         effect: {
             type: String,
             default() { 
@@ -81,20 +73,16 @@ export default {
         }
     },
     methods: {
+        coverHide: function() {
+            if (this.config.coverHidden) {
+                this.isShow.num = 1;
+                this.hide();
+            }
+        },
         init: function(item) {
             Common.extend(this.config, this.item);
 
-            if ('show' === this.config.effect) {
-                this.config.time = 0;
-            }
             PreventMove.init(this.$refs.content);
-
-            if (this.config.coverHidden) {
-                Common.addEvent(cover, 'click', function() {
-                    this.isShow.num = 1;
-                    this.hide();
-                }.bind(this));
-            }
         },
         alert: function(render, style, testItem) {
             var _testItem = {
@@ -148,8 +136,6 @@ export default {
                 this.isShow.status = true;
             }
             afterDisplay();
-            // $(cover).layerEffectIn(this.config.time);
-            // $(container).layerEffectIn(this.config.time, afterDisplay);
         },
         hide: function(afterDisplay) {
             this.isShow.reduceNum();
@@ -174,25 +160,21 @@ export default {
             }
         },
         destroy: function(callback = () => {}) {
-            if (this.isShow.status) {
-                $(container).LayerEffectOut(this.config.time, function(){
-                    alertBox.parentNode.removeChild(alertBox);
-                    callback();
-                });
-            } else {
-                alertBox.parentNode.removeChild(alertBox);
-                callback();
-            }
+            this.$destroy();
+            callback();
         },
-        isSingleBtn() {
+        getSingleBtn() {
             if (1 === this.btn.length && this.config.singleBtnClass) {
-                return true;
+                return this.config.singleBtnClass;
             }
-            return false;
+            return '';
         }
     },
     mounted() {
         this.init(this.item);
+    },
+    destroyed() {
+        this.$el.remove();
     }
 };
 </script>

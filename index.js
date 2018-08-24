@@ -1,7 +1,11 @@
 var Vue = require('vue');
 import layernative from './src/layernative.js';
 
-Vue.use(layernative);
+Vue.use(layernative, {
+    effect: 'fade',
+    coverhidden: true,
+    singlebtnclass: 'f_btn'
+});
 
 var container = new Vue({
     el: '.container',
@@ -18,7 +22,6 @@ var container = new Vue({
                             btn: [{
                                 word: '哦吼？',
                                 callback: () => {
-                                    console.log(2);
                                     this.$layernative.hide();
                                 }
                             }]
@@ -38,6 +41,19 @@ var container = new Vue({
                     }
                 }]
             });
+        },
+        layerText2() {
+            this.$layernative.alert({
+                title: '吃多了吗',
+                btn: [{
+                    word: '三天粒米未进'
+                }, {
+                    word: '嗝~'
+                }]
+            });
+        },
+        destroy() {
+            this.$layernative.destroy();
         }
     }
 });
