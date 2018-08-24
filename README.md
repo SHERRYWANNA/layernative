@@ -24,16 +24,11 @@
         }]
     }
 例子：
-
- var Vue = require('vue');
-
- import layernative from './src/layernative.js';
-
- Vue.use(layernative);
-
- 
-
 ``` 
+var Vue = require('vue');
+import layernative from './src/layernative.js';
+Vue.use(layernative);
+
 // eg.
 this.$layernative.alert({
 ​    title: '标题',
