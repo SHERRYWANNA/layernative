@@ -12,51 +12,41 @@
 使用语法：
 
     this.$layernative.alert(render);
-    render: {  				  	  // Object 弹框渲染内容
-        title: '标题',	   		// String 弹框标题
-        content: '内容',			// String 弹框内容
-        btn: [{				  	  // Array 按钮数组
-            word: '按钮文字',	   		// String 按钮文字
-            callback: () => {		   // Function 点击按钮回调函数
+    render: {                     // Object 弹框渲染内容
+        title: '标题',            // String 弹框标题
+        content: '内容',          // String 弹框内容
+        btn: [{                   // Array 按钮数组
+            word: '按钮文字',           // String 按钮文字
+            callback: () => {          // Function 点击按钮回调函数
                 console.log('回调函数');
             },
-            callbackHidden: ture	   // boolean 点击弹框是否会消失
+            callbackHidden: ture       // boolean 点击弹框是否会消失
         }]
     }
 例子：
 
-> var Vue = require('vue');
->
-> import layernative from './src/layernative.js';
->
-> Vue.use(layernative);
->
-> 
->
-> // eg.
->
-> this.$layernative.alert({
->
-> ​	title: '标题',
->
-> ​	content: '内容',
->
-> ​	btn: [{
->
-> ​		word: '按钮文字',
->
-> ​		callback: () => {
->
-> ​			console.log('回调函数');
->
-> ​		},
->
-> ​		callbackHidden: ture
->
-> ​	}]
->
-> });
+ var Vue = require('vue');
 
+ import layernative from './src/layernative.js';
+
+ Vue.use(layernative);
+
+ 
+
+``` 
+// eg.
+this.$layernative.alert({
+​    title: '标题',
+​    content: '内容',
+​    btn: [{
+​        word: '按钮文字',
+​        callback: () => {
+​            console.log('回调函数');
+​        },
+​        callbackHidden: ture
+​    }]
+});
+```
 
 
 
