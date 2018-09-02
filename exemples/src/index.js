@@ -1,5 +1,5 @@
 var Vue = require('vue');
-import layernative from './src/layernative.js';
+import layernative from '../../src/index.js';
 
 Vue.use(layernative, {
     effect: 'fade',
@@ -10,7 +10,7 @@ Vue.use(layernative, {
 var container = new Vue({
     el: '.container',
     methods: {
-        layerText() {
+        layerTextComboLayer() {
             this.$layernative.alert({
                 title: 'Hello',
                 content: 'World',
@@ -30,7 +30,7 @@ var container = new Vue({
                 }]
             });
         },
-        layerText1() {
+        layerTextKeepAlive() {
             this.$layernative.alert({
                 title: 'Hello',
                 content: 'World',
@@ -42,9 +42,20 @@ var container = new Vue({
                 }]
             });
         },
-        layerText2() {
+        layerTextTwoBtn() {
             this.$layernative.alert({
                 title: '吃多了吗',
+                btn: [{
+                    word: '三天粒米未进'
+                }, {
+                    word: '嗝~'
+                }]
+            });
+        },
+        layerTextLongContent() {
+            this.$layernative.alert({
+                title: '吃多了吗',
+                content: '章鱼小丸子，<b>紫菜</b>，奥尔良烤翅，各类慕斯，黑森林，布朗尼，提拉米苏，牛排，牛肉干，奶昔，奶茶，双皮奶，手抓饼，巧克力，咖喱鱼丸，鱼腐，寿司，北极贝，三文鱼，天妇罗，黑轮，冰激凌，炒面，三文治，鸡翅，意大利面，烧烤，鳗鱼饭三吃，拉面，熟寿司，荞麦面，咚咚烧  三阳开泰 蜜三刀 砂锅三鲜 四季豆 四宝菜 五花肉 五香鳝片',
                 btn: [{
                     word: '三天粒米未进'
                 }, {

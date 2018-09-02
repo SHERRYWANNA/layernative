@@ -1,7 +1,7 @@
 <template>
 <transition :name="config.effect">
 <div class="layer" :class="[layerClass]" v-show="isShow.status">
-    <div class="layer_cover" @click="coverHide"></div>
+    <div class="layer_cover" @click="coverHide" @touchmove.prevent=""></div>
     <div class="layer_container" :style="containerStyle">
         <div class="layer_tt" v-html="title"></div>
         <div class="layer_content" v-html="content" ref="content"></div>
@@ -14,8 +14,8 @@
 </template>
 
 <script type="text/javascript">
-import Common from './js/common.js';
-import PreventMove from './js/preventmove.js';
+import Common from '../utils/common.js';
+import PreventMove from '../utils/preventmove.js';
 
 export default {
     name: 'layernative',
@@ -179,4 +179,4 @@ export default {
 };
 </script>
 
-<style src="./css/index.css"></style>
+<style src="../styles/index.css"></style>

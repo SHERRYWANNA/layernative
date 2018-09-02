@@ -26,10 +26,10 @@
 例子：
 ``` 
 var Vue = require('vue');
-import layernative from './src/layernative.js';
+import layernative from '@ths/layernative.js';
 Vue.use(layernative);
 
-// eg.
+// eg.（实例中使用
 this.$layernative.alert({
 ​    title: '标题',
 ​    content: '内容',
@@ -42,13 +42,3 @@ this.$layernative.alert({
 ​    }]
 });
 ```
-
-demo地址：
-
-    https://sherrywanna.github.io/layernative/index.html
-
-
-
-参考文档：
-
-[Vue.js 组件编码规范](https://zhuanlan.zhihu.com/p/25654116)  

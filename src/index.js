@@ -1,5 +1,5 @@
 var Vue = require('vue');
-import Layernative from './layernative.vue';
+import Layernative from './components/layernative.vue';
 
 const Layer = {
     // 注册

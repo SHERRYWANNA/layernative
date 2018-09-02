@@ -1,5 +1,5 @@
 {
-  "name": "layernative",
+  "name": "@ths/layernative",
   "version": "0.0.1",
   "description": "layernative",
   "main": "dist/index.js",
@@ -9,22 +9,15 @@
     "build": "webpack --mode production",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/SHERRYWANNA/layernative.git"
-  },
+  "repository": {},
   "keywords": [
     "layernative",
     "popup",
     "box",
     "window"
   ],
-  "author": "SHERRYWANNA",
+  "author": "zhengqianqian",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/SHERRYWANNA/layernative/issues"
-  },
-  "homepage": "https://github.com/SHERRYWANNA/layernative#readme",
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",

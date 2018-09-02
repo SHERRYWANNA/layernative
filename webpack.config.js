@@ -4,11 +4,12 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 module.exports = {
     entry: {
-        index: path.resolve(__dirname, 'index.js')
+        "dist/layernative": path.resolve(__dirname, 'src/index.js'),
+        "exemples/dist/index": path.resolve(__dirname, 'exemples/src/index.js')
     }, //入口文件
     output: {
         path: path.resolve(__dirname), 
-        filename: 'dist/[name].js'
+        filename: '[name].js'
     },
     module: {
         rules: [
