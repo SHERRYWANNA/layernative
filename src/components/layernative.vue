@@ -2,11 +2,11 @@
 <transition :name="config.effect">
 <div class="layer" :class="[layerClass]" v-show="isShow.status">
     <div class="layer_cover" @click="coverHide" @touchmove.prevent=""></div>
-    <div class="layer_container" :style="containerStyle">
+    <div class="layer_container" :style="containerStyles">
         <div class="layer_tt" v-html="title"></div>
         <div class="layer_content" v-html="content" ref="content"></div>
         <div class="layer_btnarea">
-            <div class="layer_btn" v-for="_btn in btn" @click="_btn.callback" :class="[getSingleBtn()]" v-html="_btn.word"></div>
+            <div class="layer_btn" v-for="_btn in btn" @click="_btn.callback" :class="[getSingleBtnClass()]" v-html="_btn.word"></div>
         </div>
     </div>
 </div>
@@ -25,11 +25,10 @@ export default {
             title: '标题',
             content: '内容',
             btn: [{
-                word: '我知道了',
-                callbackHidden: 1
+                word: '我知道了'
             }],
             layerClass: '',
-            containerStyle: '',
+            containerStyles: {},
             config: {
                 coverHidden: _that.coverhidden,
                 time: _that.time,
@@ -147,14 +146,14 @@ export default {
             }
         },
         clearStyle: function() {
-            this.containerStyle = '';
+            this.containerStyles = {};
             this.layerClass = '';
         },
         addStyle: function(style) {
             this.clearStyle();
 
             if ('object' === typeof style) {
-                this.containerStyle = style;
+                this.containerStyles = style;
             } else if ('string' === typeof style) {
                 this.layerClass = style;
             }
@@ -163,7 +162,7 @@ export default {
             this.$destroy();
             callback();
         },
-        getSingleBtn() {
+        getSingleBtnClass() {
             if (1 === this.btn.length && this.config.singleBtnClass) {
                 return this.config.singleBtnClass;
             }

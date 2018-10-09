@@ -4,8 +4,8 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 module.exports = {
     entry: {
-        "dist/layernative": path.resolve(__dirname, 'src/index.js'),
-        "exemples/dist/index": path.resolve(__dirname, 'exemples/src/index.js')
+        "../dist/index": path.resolve(__dirname, '../src/index.js'),
+        "../exemples/dist/index": path.resolve(__dirname, '../exemples/src/index.js')
     }, //入口文件
     output: {
         path: path.resolve(__dirname), 
@@ -60,7 +60,7 @@ module.exports = {
     devServer: {
         clientLogLevel: 'warning',
         historyApiFallback: true,
-        contentBase: path.resolve(__dirname),
+        contentBase: path.resolve(__dirname, '../'),
         hot: true,
         inline: true,
         compress: true,

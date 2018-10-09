@@ -1,5 +1,6 @@
 import Common from './common.js';
 
+/* istanbul ignore next */
 var preventMove = {
     scroll: false,
     status: false,
