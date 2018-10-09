@@ -1,7 +1,7 @@
 {
-  "name": "@ths/layernative",
+  "name": "@arni/vue-layernative",
   "version": "1.0.0",
-  "description": "layernative",
+  "description": "vue-layernative",
   "main": "src/index.js",
   "scripts": {
     "server": "webpack-dev-server --config build/webpack.config.js --mode development",
@@ -16,7 +16,7 @@
     "box",
     "window"
   ],
-  "author": "zhengqianqian",
+  "author": "arni",
   "license": "ISC",
   "devDependencies": {
     "babel-core": "^6.26.3",
