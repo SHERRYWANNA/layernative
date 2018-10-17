@@ -1,11 +1,13 @@
 <template>
-<transition :name="config.effect">
+<transition :name="config.effect" @after-enter="layerEnter">
 <div class="layer" :class="[layerClass]" v-show="isShow.status">
-    <div class="layer_cover" @click="coverHide" @touchmove.prevent=""></div>
+    <div class="layer_cover" @click="coverHide" @touchmove.prevent></div>
     <div class="layer_container" :style="containerStyles">
-        <div class="layer_tt" v-html="title"></div>
-        <div class="layer_content" v-html="content" ref="content"></div>
-        <div class="layer_btnarea">
+        <div class="layer_tt" v-html="title" @touchmove.prevent></div>
+        <div class="layer_content" v-html="content" ref="content">
+            <slot></slot>
+        </div>
+        <div class="layer_btnarea" @touchmove.prevent>
             <div class="layer_btn" v-for="_btn in btn" @click="_btn.callback" :class="[getSingleBtnClass()]" v-html="_btn.word"></div>
         </div>
     </div>
@@ -29,6 +31,7 @@ export default {
             }],
             layerClass: '',
             containerStyles: {},
+            isCoverHide: this.coverhidden,
             config: {
                 coverHidden: _that.coverhidden,
                 time: _that.time,
@@ -72,18 +75,18 @@ export default {
         }
     },
     methods: {
-        coverHide: function() {
-            if (this.config.coverHidden) {
+        coverHide() {
+            if (this.isCoverHide) {
                 this.isShow.num = 1;
                 this.hide();
             }
         },
-        init: function(item) {
+        init(item) {
             Common.extend(this.config, this.item);
 
             PreventMove.init(this.$refs.content);
         },
-        alert: function(render, style, testItem) {
+        alert(render, style, testItem) {
             var _testItem = {
                     afterShow() {},
                     afterHide() {}
@@ -91,11 +94,14 @@ export default {
                 _render = {
                     title: '',
                     content: '',
-                    btn: [{}]
+                    btn: [{}],
+                    coverHidden: this.config.coverHidden
                 };
 
             Common.extend(_testItem, testItem);
             Common.extend(_render, render);
+
+            this.isCoverHide = _render.coverHidden;
 
             for (var i = 0; i < _render.btn.length; i++) {
                 let btnConfig = resetBtn.call(this, _render.btn[i].word, _render.btn[i].callback, _render.btn[i].callbackHidden);
@@ -105,7 +111,6 @@ export default {
             Common.extend(this, _render);
             this.show(style, _testItem.afterShow);
 
-            PreventMove.isAddScroll();
            
             function resetBtn(word = '我知道了', callback, callbackHidden) {
                 let _callback = () => {
@@ -128,7 +133,10 @@ export default {
                 };
             }
         },
-        show: function(style, afterDisplay) {
+        layerEnter() {
+            PreventMove.isAddScroll();
+        },
+        show(style, afterDisplay) {
             this.addStyle(style);
             if (!this.isShow.status) {
                 this.isShow.addNum();
@@ -136,7 +144,7 @@ export default {
             }
             afterDisplay();
         },
-        hide: function(afterDisplay) {
+        hide(afterDisplay) {
             this.isShow.reduceNum();
             this.isShow.status = false;
             if (!this.isShow.num) {
@@ -145,11 +153,11 @@ export default {
                 }
             }
         },
-        clearStyle: function() {
+        clearStyle() {
             this.containerStyles = {};
             this.layerClass = '';
         },
-        addStyle: function(style) {
+        addStyle(style) {
             this.clearStyle();
 
             if ('object' === typeof style) {
@@ -158,7 +166,7 @@ export default {
                 this.layerClass = style;
             }
         },
-        destroy: function(callback = () => {}) {
+        destroy(callback = () => {}) {
             this.$destroy();
             callback();
         },

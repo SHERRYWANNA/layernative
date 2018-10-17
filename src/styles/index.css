@@ -17,7 +17,7 @@
 .layer_cover { 
     background: url(../images/cover.png);
     background-size: cover; 
-    position: absolute; 
+    position: fixed; 
     top: 0; 
     left: 0; 
     bottom: 0; 
@@ -91,8 +91,8 @@
 }
 
 .fade-enter-active, .fade-leave-active {
-  transition: opacity .25s;
+    transition: opacity .25s;
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-  opacity: 0;
+    opacity: 0;
 }

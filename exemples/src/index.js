@@ -15,12 +15,12 @@ var container = new Vue({
                 title: 'Hello',
                 content: 'World',
                 btn: [{
-                    word: '吃多了吗',
+                    word: '按钮一',
                     callback: () => {
                         this.$layernative.alert({
-                            title: '是啊',
+                            title: '标题二',
                             btn: [{
-                                word: '哦吼？',
+                                word: '按钮二',
                                 callback: () => {
                                     this.$layernative.hide();
                                 }
@@ -35,7 +35,7 @@ var container = new Vue({
                 title: 'Hello',
                 content: 'World',
                 btn: [{
-                    word: '吃多了吗',
+                    word: '按钮一',
                     callback: () => {
                         console.log(1);
                     }
@@ -44,24 +44,36 @@ var container = new Vue({
         },
         layerTextTwoBtn() {
             this.$layernative.alert({
-                title: '吃多了吗',
+                title: '标题一',
                 btn: [{
-                    word: '三天粒米未进'
+                    word: '按钮一'
                 }, {
-                    word: '嗝~'
-                }]
+                    word: '按钮二'
+                }],
+                coverHidden: true
+            });
+        },
+        layerTextCoverKeepAlive() {
+            this.$layernative.alert({
+                title: '标题一',
+                btn: [{
+                    word: '按钮一'
+                }, {
+                    word: '按钮二'
+                }],
+                coverHidden: false
             });
         },
         layerTextLongContent() {
             this.$layernative.alert({
-                title: '吃多了吗',
+                title: '标题一',
                 content: '章鱼小丸子，<b>紫菜</b>，奥尔良烤翅，各类慕斯，黑森林，布朗尼，提拉米苏，牛排，牛肉干，奶昔，奶茶，双皮奶，手抓饼，巧克力，咖喱鱼丸，鱼腐，寿司，北极贝，三文鱼，天妇罗，黑轮，冰激凌，炒面，三文治，鸡翅，意大利面，烧烤，鳗鱼饭三吃，拉面，熟寿司，荞麦面，咚咚烧  三阳开泰 蜜三刀 砂锅三鲜 四季豆 四宝菜 五花肉 五香鳝片',
                 btn: [{
-                    word: '三天粒米未进'
+                    word: '按钮一'
                 }, {
-                    word: '嗝~'
+                    word: '按钮二'
                 }]
-            });
+            }, 'layer-long');
         },
         destroy() {
             this.$layernative.destroy();

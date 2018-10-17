@@ -6,13 +6,11 @@ var preventMove = {
     status: false,
     startY: 0,
     init(content) {
-        // this.box = box;
         this.content = content;
         this.addEvent();
     },
     fun(e) {
         var _event = e || event;
-
         if (this.scroll && this.status) {
             var _py = e.targetTouches[0].pageY,
                 _ch = this.content.clientHeight,
@@ -32,19 +30,14 @@ var preventMove = {
         }
     },
     addEvent() {
-        Common.addEvent(this.content, 'touchstart', 
-            function(e) {
-                var _event = e || event;
-                preventMove.status = true;
-                preventMove.startY = _event.targetTouches[0].pageY;
-            }
-        );
-        Common.addEvent(this.content, 'touchend', 
-            function() {
-                preventMove.status = false;
-            }
-        );
-        // Common.addEvent(this.box, 'touchmove', this.fun.bind(this));
+        Common.addEvent(this.content, 'touchstart', (e) => {
+            var _event = e || event;
+            preventMove.status = true;
+            preventMove.startY = _event.targetTouches[0].pageY;
+        });
+        Common.addEvent(this.content, 'touchend', () => {
+            preventMove.status = false;
+        });
         Common.addEvent(this.content, 'touchmove', this.fun.bind(this));
     },
     isAddScroll() {
