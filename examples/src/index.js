@@ -1,5 +1,5 @@
 var Vue = require('vue');
-import layernative from '../../src/index.js';
+import layernative from '../../dist/index.js';
 
 Vue.use(layernative, {
     effect: 'fade',

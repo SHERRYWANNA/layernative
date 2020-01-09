@@ -5,13 +5,12 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
     entry: {
-        "dist/index": path.resolve(__dirname, '../src/index.js')
+        "dist/index": path.resolve(__dirname, '../src/index.js'),
+        "examples/dist/index": path.resolve(__dirname, '../examples/src/index.js')
     }, //入口文件
     output: {
-        path: path.resolve(__dirname, '../'), 
-        filename: '[name].js',
-        library: '@arni/layernative',
-        libraryTarget: 'umd'
+        path: path.resolve(__dirname, '../'),
+        filename: '[name].js'
     },
     module: {
         rules: [
@@ -53,11 +52,22 @@ module.exports = {
     plugins: [
         new webpack.DefinePlugin({
             'process.env': {
-                NODE_ENV: '"production"'
+                NODE_ENV: '"development"'
             }
         }),
-        new VueLoaderPlugin()
+        new VueLoaderPlugin(),
+        new webpack.HotModuleReplacementPlugin()
     ],
+    devServer: {
+        clientLogLevel: 'warning',
+        historyApiFallback: true,
+        contentBase: path.resolve(__dirname, '../'),
+        hot: true,
+        inline: true,
+        compress: true,
+        host: 'localhost',
+        port: 8080
+    },
 
     optimization: {
         minimizer: [
@@ -67,4 +77,5 @@ module.exports = {
             })
         ],
     }
+
 };

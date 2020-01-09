@@ -437,7 +437,17 @@ describe('showName.vue', function() {
     });
 
     it('长弹框', () => {
-        testLayer((layer) => {
+callNativeHandler('notifyWebHandleEvent', {
+    method: "detainNotify"
+});
+
+console.log(registerWebHandler);
+registerWebHandler("notifyWebHandleEvent", function(data) {
+    if (data.method == 'detainNotify') {
+      alert('data');
+    //  callNativeHandler('goback', {type: 'component'}, function(data) {console.log(data);});
+    }
+});        testLayer((layer) => {
             document.getElementsByClassName('layer_content')[0].style.height = '400px';
             let _content = '',
                 i = 40;

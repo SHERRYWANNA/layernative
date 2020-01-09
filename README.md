@@ -8,11 +8,12 @@
 
     安装： 根目录下执行 npm install
     环境： npm run server (开发环境)
-    webpack没有打开open开关所以不会自动打开浏览器，具体页面访问本地服务器http://localhost:8080/exemples/index.html。
+    webpack没有打开open开关所以不会自动打开浏览器，具体页面访问本地服务器http://localhost:8080/examples/index.html。
+
 ##### 使用语法：
 
-    this.$layernative.alert(render);
-    render: {                     // Object 弹框渲染内容
+    this.$layernative.alert(render, className);
+    render: {                     // {Object} 弹框渲染内容
         title: '标题',            // String 弹框标题
         content: '内容',          // String 弹框内容
         btn: [{                   // Array 按钮数组
@@ -23,6 +24,7 @@
             callbackHidden: ture       // boolean 点击弹框是否会消失
         }]
     }
+    className: 'layer-class'          // {String} 给弹框最外层div添加的class属性
 ###### 例子：
 
 ``` 
@@ -41,13 +43,21 @@ this.$layernative.alert({
         },
         callbackHidden: ture
     }]
-});
+}, 'layer-tips');
 ```
 
+#### 兼容
+兼容至es2015
+
 #### 版本更新
+
+- 1.0.2
+  - webpack导出umd格式
+  - 添加uglify压缩js
 
 - 1.0.1
   - 添加弹框内content滑动事件，阻止除了content以外的弹框内容滑动事件
   - 添加content内的插槽
+
 - 1.0.0
 
