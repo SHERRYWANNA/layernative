@@ -2,7 +2,7 @@
 
 #### 简单的vue弹框插件
 
-###### npm包名： @arni/layernative
+###### npm包名： @arni/vue-layernative
 
 ##### 简单使用：
 
@@ -29,7 +29,7 @@
 
 ``` 
 var Vue = require('vue');
-import layernative from '@arni/layernative.js';
+import layernative from '@arni/vue-layernative';
 Vue.use(layernative);
 
 // eg.（实例中使用
