@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>弹框测试页面</title>
+    <script type="text/javascript" src="https://sherrywanna.github.io/resource/dist/js/flexible.js"></script>
     <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,user-scalable=no">
     <style>
         button {
@@ -31,6 +32,8 @@
         <button @click="layerTextTwoBtn">两个按钮</button>
         <button @click="layerTextCoverKeepAlive">点击背景不消失</button>
         <button @click="layerTextLongContent">好长好长的内容</button>
+        <button @click="layerTips">提示弹框</button>
+        <button @click="layerToast">toast提示弹框</button>
         <button @click="destroy">销毁</button>
         <div class="longdiv"></div>
     </div>

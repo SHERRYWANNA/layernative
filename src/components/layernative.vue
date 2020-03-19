@@ -1,14 +1,45 @@
 <template>
-<transition :name="config.effect" @after-enter="layerEnter">
-<div class="layer" :class="[layerClass]" v-show="isShow.status">
-    <div class="layer_cover" @click="coverHide" @touchmove.prevent></div>
-    <div class="layer_container" :style="containerStyles">
-        <div class="layer_tt" v-html="title" @touchmove.prevent></div>
-        <div class="layer_content" v-html="content" ref="content">
+<transition 
+    :name="config.effect" 
+    @after-enter="layerEnter"
+>
+<div 
+    class="layer" 
+    :class="[layerClass]" 
+    v-show="isShow.status"
+>
+    <div 
+        class="layer_cover" 
+        @click="coverHide" 
+        @touchmove.prevent
+    ></div>
+    <div 
+        class="layer_container" 
+        :style="containerStyles"
+    >
+        <div 
+            class="layer_tt" 
+            v-html="title" 
+            @touchmove.prevent
+        ></div>
+        <div 
+            class="layer_content" 
+            v-html="content" 
+            ref="content"
+        >
             <slot></slot>
         </div>
-        <div class="layer_btnarea" @touchmove.prevent>
-            <div class="layer_btn" v-for="_btn in btn" @click="_btn.callback" :class="[getSingleBtnClass()]" v-html="_btn.word"></div>
+        <div 
+            class="layer_btnarea" 
+            @touchmove.prevent
+        >
+            <div 
+                class="layer_btn" 
+                v-for="item in btn" 
+                @click="btnCallback(item.callback)" 
+                :class="[getSingleBtnClass()]" 
+                v-html="item.word"
+            ></div>
         </div>
     </div>
 </div>
@@ -21,8 +52,40 @@ import PreventMove from '../utils/preventmove.js';
 
 export default {
     name: 'layernative',
+
+    props: {
+        coverhidden: {
+            type: Boolean,
+            default() { 
+                return false; 
+            }
+        },
+        effect: {
+            type: String,
+            default() { 
+                return 'fade'; 
+            }
+        },
+        singlebtnclass: {
+            type: String,
+            default() { 
+                return 'layer_btn-red'; 
+            }
+        },
+        tipsConfig: {
+            type: Object
+        },
+        toastTime: {
+            type: Number,
+            default() {
+                return 3e3;
+            }
+        }
+    },
+
     data() {
         var _that = this;
+
         return {
             title: '标题',
             content: '内容',
@@ -51,29 +114,19 @@ export default {
                         this.num = _limit;
                     }
                 }
-            }
+            },
+
+            tipsTimer: null
         };
     },
-    props: {
-        coverhidden: {
-            type: Boolean,
-            default() { 
-                return false; 
-            }
-        },
-        effect: {
-            type: String,
-            default() { 
-                return 'fade'; 
-            }
-        },
-        singlebtnclass: {
-            type: String,
-            default() { 
-                return 'layer_btn-red'; 
-            }
-        }
+    
+    mounted() {
+        this.init(this.item);
     },
+    destroyed() {
+        this.$el.remove();
+    },
+
     methods: {
         coverHide() {
             if (this.isCoverHide) {
@@ -87,6 +140,8 @@ export default {
             PreventMove.init(this.$refs.content);
         },
         alert(render, style, testItem) {
+            clearTimeout(this.tipsTimer);
+
             var _testItem = {
                     afterShow() {},
                     afterHide() {}
@@ -104,14 +159,18 @@ export default {
             this.isCoverHide = _render.coverHidden;
 
             for (var i = 0; i < _render.btn.length; i++) {
-                let btnConfig = resetBtn.call(this, _render.btn[i].word, _render.btn[i].callback, _render.btn[i].callbackHidden);
+                let btnConfig = resetBtn.call(
+                    this, 
+                    _render.btn[i].word, 
+                    _render.btn[i].callback, 
+                    _render.btn[i].callbackHidden
+                );
                 Common.extend(_render.btn[i], btnConfig);
             }
 
             Common.extend(this, _render);
             this.show(style, _testItem.afterShow);
 
-           
             function resetBtn(word = '我知道了', callback, callbackHidden) {
                 let _callback = () => {
                     if (callback) {
@@ -133,6 +192,35 @@ export default {
                 };
             }
         },
+
+        tips(content) {
+            let config = {
+                title: '提示',
+                btnWord: '我知道了'
+            };
+
+            Common.extend(config, this.tipsConfig);
+
+            this.alert({
+                title: config.title,
+                content,
+                btn: [{
+                    word: config.btnWord
+                }]
+            });
+        },
+
+        toast(content) {
+            this.alert({
+                title: '',
+                content
+            }, 'layer-toast');
+
+            this.tipsTimer = setTimeout(() => {
+                this.hide();
+            }, this.toastTime);
+        },
+
         layerEnter() {
             PreventMove.isAddScroll();
         },
@@ -175,15 +263,17 @@ export default {
                 return this.config.singleBtnClass;
             }
             return '';
+        },
+
+        btnCallback(callback) {
+            if (callback) {
+                callback();
+            }
         }
-    },
-    mounted() {
-        this.init(this.item);
-    },
-    destroyed() {
-        this.$el.remove();
     }
+
+    
 };
 </script>
 
-<style src="../styles/index.css"></style>
+<style src="../styles/index.css" scoped></style>

@@ -1,0 +1,7 @@
+examples/
+test/
+node_modules/
+build/
+.npmignore
+.gitignore
+.jshintrc

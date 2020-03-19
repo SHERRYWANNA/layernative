@@ -1,10 +1,15 @@
 var Vue = require('vue');
-import layernative from '../../dist/index.js';
+import layernative from '../../src/index.js';
 
 Vue.use(layernative, {
     effect: 'fade',
     coverhidden: true,
-    singlebtnclass: 'f_btn'
+    singlebtnclass: 'f_btn',
+    toastTime: 1e3,
+    tipsConfig: {
+        title: '233',
+        btnWord: '你不知道'
+    }
 });
 
 var container = new Vue({
@@ -75,6 +80,15 @@ var container = new Vue({
                 }]
             }, 'layer-long');
         },
+
+        layerTips() {
+            this.$layernative.tips('你知道个啥哦');
+        },
+
+        layerToast() {
+            this.$layernative.toast('toast你知个啥哦');
+        },
+
         destroy() {
             this.$layernative.destroy();
         }

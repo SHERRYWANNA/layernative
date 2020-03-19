@@ -4,6 +4,10 @@
 
 ###### npm包名： @arni/vue-layernative
 
+**demo地址**：<https://sherrywanna.github.io/layernative/examples/index.html
+
+
+
 ##### 简单使用：
 
     安装： 根目录下执行 npm install
@@ -12,19 +16,22 @@
 
 ##### 使用语法：
 
-    this.$layernative.alert(render, className);
-    render: {                     // {Object} 弹框渲染内容
-        title: '标题',            // String 弹框标题
-        content: '内容',          // String 弹框内容
-        btn: [{                   // Array 按钮数组
-            word: '按钮文字',           // String 按钮文字
-            callback: () => {          // Function 点击按钮回调函数
-                console.log('回调函数');
-            },
-            callbackHidden: ture       // boolean 点击弹框是否会消失
-        }]
+    interface BtnItem {
+    	word: string,           	// 按钮文字
+        callback(): void;       	// Function 点击按钮回调函数
+        callbackHidden: boolean     // boolean 点击按钮后弹框是否会消失
     }
-    className: 'layer-class'          // {String} 给弹框最外层div添加的class属性
+    
+    interface Render {
+      	title: string,            // 弹框标题
+        content: string,          // 弹框内容
+        btn: BtnItem[]            // Array 按钮数组
+    }
+    
+    /**
+     * @param {string} className 给弹框最外层div添加的class属性
+     */
+    this.$layernative.alert(render: Render, className: string);
 ###### 例子：
 
 ``` 
@@ -32,7 +39,7 @@ var Vue = require('vue');
 import layernative from '@arni/vue-layernative';
 Vue.use(layernative);
 
-// eg.（实例中使用
+// eg.普通弹窗
 this.$layernative.alert({
     title: '标题',
     content: '内容',
@@ -44,6 +51,12 @@ this.$layernative.alert({
         callbackHidden: ture
     }]
 }, 'layer-tips');
+
+// eg.toast
+this.$layernative.toast('toast');
+
+// eg.tips
+this.$layernative.tips('tips')
 ```
 
 #### 兼容
@@ -51,13 +64,14 @@ this.$layernative.alert({
 
 #### 版本更新
 
+- 1.0.3
+  - 添加 toast 方法和 tips 方法
+  - 添加 scoped 控制样式
 - 1.0.2
   - webpack导出umd格式
   - 添加uglify压缩js
-
 - 1.0.1
   - 添加弹框内content滑动事件，阻止除了content以外的弹框内容滑动事件
   - 添加content内的插槽
-
 - 1.0.0
 
