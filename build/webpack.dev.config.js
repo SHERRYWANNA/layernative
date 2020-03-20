@@ -5,7 +5,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
     entry: {
-        "dist/index": path.resolve(__dirname, '../src/index.js'),
+        // "dist/index": path.resolve(__dirname, '../src/index.js'),
         "examples/dist/index": path.resolve(__dirname, '../examples/src/index.js')
     }, //入口文件
     output: {

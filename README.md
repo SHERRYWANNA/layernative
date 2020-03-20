@@ -63,10 +63,11 @@ this.$layernative.tips('tips')
 兼容至es2015
 
 #### 版本更新
-
-- 1.0.3
+- 1.0.4
   - 添加 toast 方法和 tips 方法
   - 添加 scoped 控制样式
+- 1.0.3 - deprecate
+  - "Unable to use, dist generated is a test version"
 - 1.0.2
   - webpack导出umd格式
   - 添加uglify压缩js

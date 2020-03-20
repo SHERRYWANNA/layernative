@@ -1,6 +1,6 @@
 {
     "name": "@arni/vue-layernative",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "description": "vue-layernative",
     "main": "dist/index.js",
     "scripts": {
